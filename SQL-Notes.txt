@@ -1,0 +1,130 @@
+DBMS: DataBase Management System.
+      System which maintains all the databases , tables etc.
+
+Relational Data base management systems ( rows and columns )
+Examples:
+ 	MySQL
+	Maria DB - commercial mysql 
+	Oracle
+	Postgres
+	Db2
+	Microsoft SQL Server
+	Informix
+
+SQL : Structured Query Language :
+      Language used to run queries on any of the above DBMS.
+-----------------------------------------------------------------------------------------------------------
+Non Relational Data base management systems: ( No - SQL ) : SQL - relations = No SQL
+	Mongodb
+	cassandra
+	couchbase
+-------------------------------------------------------------------------------------------------------------
+MySQl | Maria DB
+Hope installation is done
+We are using DBeaver
+Inlocal mysql is running om 3306 port with localhost | 127.0.0.1 as hostname
+username : root password root
+
+Review things :
+various functions
+alias
+joins
+subqueries
+CTE : Common Table Expressions ( with functions )
+-------------Advanced------------------------
+These will be stored in databases:
+
+stored procedures
+stored functions
+triggers
+cursors
+
+-----------------------------------------------------------------------------------------------------------
+Joins:
+Innerjoin : 
+
+-- Example of inner join
+
+SELECT 
+	c.customerNumber,
+	CAST(c.customerNumber AS CHAR(255)) AS cc,
+	CONVERT(c.customerNumber,CHAR(255)) AS cd,
+	upper(c.customerName) AS customerName ,
+	c.contactFirstName ,
+	c.contactLastName ,
+	c.phone ,
+	c.state ,
+	c.country ,
+	o.orderNumber ,
+	o.orderDate ,
+	o.requiredDate ,
+	o.shippedDate ,
+	o.status ,
+	o.comments 
+	FROM customers c 
+	INNER JOIN orders o 
+ON c.customerNumber = o.customerNumber 
+WHERE c.customerNumber > 200
+ORDER BY customerName ASC
+LIMIT 2;
+
+---------------------------
+
+Inner Join Multiple Tables :
+SELECT 
+	c.customerNumber AS customer_name,
+	c.contactFirstName ,
+	o.orderNumber ,
+	o.orderDate ,
+	o.requiredDate ,
+	o.shippedDate ,
+	o.status ,
+	o.comments ,
+	p.checkNumber ,
+	p.paymentDate ,
+	p.amount 
+FROM customers c 
+INNER JOIN orders o 
+	ON c.customerNumber = o.customerNumber 
+INNER JOIN payments p
+	ON o.customerNumber = p.customerNumber 
+	WHERE c.customerNumber > 200
+	ORDER BY customer_name ASC 
+	LIMIT 10;
+--------------------------------------------------------------------------------------------------------
+Outer Join is two types:
+
+1. Left outer join 
+2. Right outer join 
+   Outer keyword is optional 
+
+Left Join Example :
+-------------------
+SELECT 
+	c.customerNumber AS customer_name,
+	substring( c.contactFirstName , 1,3) AS name,
+	o.orderNumber ,
+	DAY (o.orderDate) AS dd,
+	o.requiredDate ,
+	o.shippedDate ,
+	o.status ,
+	o.comments ,
+	p.checkNumber ,
+	p.paymentDate ,
+	substring(cast(p.paymentDate AS char(255)),1,5) AS p_date,
+	p.amount ,
+	CAST(p.amount AS signed) p_amount
+FROM customers c 
+LEFT OUTER JOIN orders o 
+	ON c.customerNumber = o.customerNumber 
+LEFT OUTER JOIN payments p
+	ON o.customerNumber = p.customerNumber 
+	WHERE c.customerNumber BETWEEN 900 AND 1000;
+
+-----------------------------------------------------------------------------------------------------------------------------------
+Right Join : yet to start
+
+
+
+
+
